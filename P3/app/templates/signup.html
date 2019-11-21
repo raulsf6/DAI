@@ -1,0 +1,136 @@
+<html>
+    <head>
+        <title>Práctica 3</title>
+        <link rel="stylesheet" href="/static/style.css">
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+            crossorigin="anonymous">
+    </head>
+    <body>
+        <div id="j1" class="jumbotron mb-0">
+            <h1 class="display-1 text-center">Práctica 3</h1>
+        </div>
+
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+            <a id="logo" class="navbar-brand" href="/">
+                <img src="/static/logo.png" width="30" height="30">
+                DAI
+            </a>
+
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contacto">Contacto</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/quienessomos">Quienes somos</a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    {% if logged %}
+                        <a class="nav-link badge-success" href="#">Bienvenido
+                            {{user.name}}, estás logeado</a>
+                    {% else %}
+                        <a href="/login" class="btn btn-danger" role="button" aria-pressed="true">No estás logeado</a>
+                    {% endif %}
+                </li>
+            </ul>
+
+        </nav>
+
+        {%if logged%}
+            <div class="row">
+                <div class="col-2 py-md-5 ml-md-5 float-left">
+                    <p class="h3">3 últimas páginas visitadas</p>
+                    <ul class="list-unstyled">
+                        {% for pag in visited %}
+                            <li>
+                                -
+                                {{pag}}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="col-8">
+                    <div class="container">
+                        <h2 class="display-4 pt-md-5 mx-auto text-center">
+                            {{user.name}}, ya estás registrado
+                        </h2>
+                    </div>
+                </div>
+                <div class="col-2"></div>
+            </div>
+            {%else%}
+            <h1 class="display-4 pt-md-5 mx-auto text-center">
+                Formulario de Registro
+            </h1>
+            <div class="row">
+                <div class="col-md-4 offset-md-4">
+                    <form class="justify-content-center" action="/signup" method="post">
+                        <div class="form-group">
+                            <label for="userName">Nombre de usuario</label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="name"
+                                placeholder="Tu nombre de usuario"
+                                required></div>
+                        <div class="form-group">
+                            <label for="userPassword">Email</label>
+                            <input
+                                type="email"
+                                class="form-control"
+                                name="email"
+                                placeholder="Tu email"
+                                required></div>
+                        <div class="form-group">
+                            <label for="userPassword">Direccion</label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="address"
+                                placeholder="Tu direccion"
+                                required></div>
+                        <div class="form-group">
+                            <label for="userAddress">Contraseña</label>
+                            <input
+                                type="password"
+                                class="form-control"
+                                name="password"
+                                placeholder="Tu contraseña"
+                                required></div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+            {%endif%}
+
+            <footer class="page-footer font-small fixed-bottom bg-light">
+                <div class="footer-copyright text-center py-3">Universidad de Granada:
+                    <a href="https://github.com/raulsf6">
+                        Raúl Sánchez Fernández</a>
+                </div>
+            </footer>
+
+            <script
+                src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+                integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+                crossorigin="anonymous"></script>
+            <script
+                src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                crossorigin="anonymous"></script>
+            <script
+                src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+                integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+                crossorigin="anonymous"></script>
+
+        </body>
+    </html>

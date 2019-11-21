@@ -1,0 +1,68 @@
+<html>
+    <head>
+        <title>Práctica 4</title>
+        <link rel="stylesheet" href="/static/style.css">
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+            crossorigin="anonymous">
+    </head>
+    <body>
+        <div
+            id="j1"
+            class="jumbotron jumbotron-fluid mb-0 text-center pb-md-5"
+            style="min-height: 400px; background-image: url(/static/header.jpg); background-size: cover; background-position: center bottom">
+            <div class="container">
+                <img class="w-50" src="/static/pokemon.png">
+                <p class="h3">Base de datos</p>
+            </div>
+        </div>
+
+        <nav class="navbar navbar-dark bg-dark align-items-center">
+
+            <a class="navbar-brand" href="/">
+                <img style="max-height: 35px" class="img-responsive" src="/static/pokemon.png">
+            </a>
+            <form class="form-inline my-auto" action="/" method="GET">
+                <input
+                    class="form-control mr-sm-2"
+                    type="search"
+                    name="query"
+                    placeholder="Pokemon"
+                    aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Buscar</button>
+            </form>
+
+        </nav>
+        <div id="mainrow" class="row">
+            <div class="col-md-2"></div>
+
+            <div class="col-md-8">
+                {% block content %}{% endblock %}
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+
+        <footer class="page-footer font-small bg-light">
+            <div class="footer-copyright text-center py-3">Universidad de Granada:
+                <a href="https://github.com/raulsf6">
+                    Raúl Sánchez Fernández</a>
+            </div>
+        </footer>
+
+        <script
+            src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+        <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+    </body>
+</html>
