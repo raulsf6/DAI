@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container py-5">
+    <div class="row">
+            <div class="col-md-6 offset-md-3 text-center mx-auto">
+                <h4>Name: {{group.name}}</h4>
+                <h4>Style: {{group.style}}</h4>
+                <h4>Creation Date: {{group.creation_date}}</h4>
+                <h4>Musicians
+                    <ul>
+                        {% for musician in group.musician_set.all %}
+                        <li>
+                            {{musician.name}}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </h4>
+                <h4>Albums
+                    <ul>
+                        {% for album in group.album_set.all %}
+                        <li>
+                            {{album.title}}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </h4>
+                <a class="btn btn-warning" href="{% url 'group_edit' pk=group.pk %}">Edit</a>
+                <a href="#" class="btn btn-danger">Delete</a>
+            </div>
+    </div>
+</div>
+    
+{% endblock %}

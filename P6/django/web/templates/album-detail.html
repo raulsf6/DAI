@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container py-5">
+    <div class="row">
+            <div class="col-md-6 offset-md-3 text-center mx-auto">
+                <h4>Title: {{album.title}}</h4>
+                <h4>Group: {{album.group.name}}</h4>
+                <h4>Distributor: {{album.distributor}}</h4>
+                <h4>Release: {{album.release_Date}}</h4>
+                <a class="btn btn-warning" href="{% url 'album_edit' pk=album.pk %}">Edit</a>
+                <a href="#" class="btn btn-danger">Delete</a>
+            </div>
+    </div>
+</div>
+    
+{% endblock %}

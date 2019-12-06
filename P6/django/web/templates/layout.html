@@ -1,0 +1,96 @@
+
+
+<html>
+    <head>
+        <title>Práctica 4</title>
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+            crossorigin="anonymous">
+    </head>
+    <body>
+            {% load static %}
+        <div
+            id="j1"
+            class="jumbotron jumbotron-fluid mb-0 text-center pb-md-5"
+            style="min-height: 400px; background-image: url({% static "p6/header.jpg" %}); background-size: cover; background-position: center bottom">
+        </div>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+            <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">
+                                <svg class="bi bi-play" width="22" height="22" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M12.804 10L7 6.633v6.734L12.804 10zm.792-.696a.802.802 0 010 1.392l-6.363 3.692C6.713 14.69 6 14.345 6 13.692V6.308c0-.653.713-.998 1.233-.696l6.363 3.692z" clip-rule="evenodd"></path>
+                                  </svg>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'groups' %}">Groups</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'musicians' %}">Musicians</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'albums' %}">Albums</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="mx-auto order-0">
+                <a class="navbar-brand mx-auto" href="#">MUSICDB</a>
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target=".dual-collapse2">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                            <a href="{% url 'musicians_new' %}" class="btn btn-success mx-2">Add musician</a>
+                            <a href="{% url 'groups_new' %}" class="btn btn-success mr-1">Add group</a>
+                            <a href="{% url 'albums_new' %}" class="btn btn-success mr-1">Add album</a>   
+                    </li>
+                    <li class="nav-item mx-2">
+                            <form class="form-inline my-auto" action="/" method="GET">
+                                <input
+                                    class="form-control mr-sm-2"
+                                    type="search"
+                                    name="query"
+                                    placeholder="Group"
+                                    aria-label="Search">
+                                <button class="btn btn-outline-success" type="submit">Buscar</button>
+                            </form>
+                    </li>
+                </ul>
+            </div>
+            
+        </nav>
+
+        {% block content %}{% endblock %}
+
+        <footer class="footer text-center py-3" style="position: absolute; bottom: 0; width: 100%; background-color: #f5f5f5;">
+            Raúl Sánchez Fernández, Universidad de Granada
+        </footer>
+
+        <script
+            src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+        <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+    </body>
+</html>
