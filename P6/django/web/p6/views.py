@@ -1,23 +1,27 @@
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from .models import Group, Musician, Album
 from .forms import GroupForm, AlbumForm, MusicianForm
+from itertools import chain
 
 # Create your views here.
 
 def index(request):
     context = {}
-    context['groups'] = Group.objects.all()
-    context['musicians'] = Musician.objects.all()
-    context['albums'] = Album.objects.all()
+    context['objects'] = []
+    for group in Group.objects.all():
+        context['objects'].append((group, "/musicdb/groups/" + str(group.pk) + "/"))
+    for musician in Musician.objects.all():
+        context['objects'].append((musician, "/musicdb/musicians/" + str(musician.pk) + "/"))
+    for album in Album.objects.all():
+        context['objects'].append((album, "/musicdb/albums/" + str(album.pk) + "/"))
     
-    return render(request,'index.html', context)
+    
+    return render(request,'general-list.html', context)
 
 def groups(request):
 
     context = {}
     context['objects'] = Group.objects.all()
-
-    print('Group' in type(context['objects'][0]).__name__)
     
     return render(request,'group-card.html', context)
 
@@ -35,19 +39,6 @@ def albums(request):
     
     return render(request,'album-card.html', context)
 
-def groups_new(request):
-    if request.method == "POST":
-        
-        form = GroupForm(request.POST)
-        if form.is_valid():
-            group = form.save(commit=False)
-            group.save()
-            return redirect('groups')
-    else:
-        form = GroupForm()
-
-    return render(request, 'group-form.html', {'form': form})
-
 def group_edit(request, pk):
     group = get_object_or_404(Group, pk=pk)
     if request.method == "POST":
@@ -60,20 +51,7 @@ def group_edit(request, pk):
     else:
         form = GroupForm(instance = group)
 
-    return render(request, 'group-form.html', {'form': form})
-
-def musicians_new(request):
-    if request.method == "POST":
-        
-        form = MusicianForm(request.POST)
-        if form.is_valid():
-            musician = form.save(commit=False)
-            musician.save()
-            return redirect('musicians')
-    else:
-        form = MusicianForm()
-
-    return render(request, 'musician-form.html', {'form': form})
+    return render(request, 'object-form.html', {'form': form})
 
 def musician_edit(request, pk):
     musician = get_object_or_404(Musician, pk=pk)
@@ -87,25 +65,7 @@ def musician_edit(request, pk):
     else:
         form = MusicianForm(instance = musician)
 
-    return render(request, 'musician-form.html', {'form': form})
-
-def musician_delete(request, pk):
-    musician = get_object_or_404(Musician, pk=pk)
-    musician.delete()
-    return redirect('musicians')
-
-def albums_new(request):
-    if request.method == "POST":
-        
-        form = AlbumForm(request.POST)
-        if form.is_valid():
-            album = form.save(commit=False)
-            album.save()
-            return redirect('albums')
-    else:
-        form = AlbumForm()
-
-    return render(request, 'album-form.html', {'form': form})
+    return render(request, 'object-form.html', {'form': form})
 
 def album_edit(request, pk):
     album = get_object_or_404(Album, pk=pk)
@@ -119,19 +79,23 @@ def album_edit(request, pk):
     else:
         form = AlbumForm(instance = album)
 
-    return render(request, 'album-form.html', {'form': form})
+    return render(request, 'object-form.html', {'form': form})
 
-def group_detail(request, pk):
-    group = get_object_or_404(Group, pk=pk)
-    return render(request, 'group-detail.html', {'group': group})
+def object_delete(request, pk):
+    path = request.path
 
-def musician_detail(request, pk):
-    musician = get_object_or_404(Musician, pk=pk)
-    return render(request, 'musician-detail.html', {'musician': musician})
-
-def album_detail(request, pk):
-    album = get_object_or_404(Album, pk=pk)
-    return render(request, 'album-detail.html', {'album': album})
+    if("musicians" in path):
+        musician = get_object_or_404(Musician, pk=pk)
+        musician.delete()
+        return redirect('musicians')
+    elif("albums" in path):
+        album = get_object_or_404(Album, pk=pk)
+        album.delete()
+        return redirect('albums')
+    else:
+        group = get_object_or_404(Group, pk=pk)
+        group.delete()
+        return redirect('groups')
 
 def object_new(request):
     path = request.path
@@ -163,7 +127,7 @@ def object_detail(request, pk):
     
     if("musicians" in path):
         musician = get_object_or_404(Musician, pk=pk)
-        return render(request, 'group-detail.html', {'group': group})
+        return render(request, 'musician-detail.html', {'musician': musician})
     elif("albums" in path):
         album = get_object_or_404(Album, pk=pk)
         return render(request, 'album-detail.html', {'album': album})

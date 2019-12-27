@@ -3,13 +3,26 @@
 {% block content %}
     <div class="container py-5">
     <div class="row">
-            <div class="col-md-6 offset-md-3 text-center mx-auto">
-                <h4>Name: {{musician.name}}</h4>
-                <h4>Group: {{musician.group.name}}</h4>
-                <h4>Birthday: {{musician.birthday}}</h4>
-                <h4>Main Instrument: {{musician.main_instrument}}</h4>
-                <a class="btn btn-warning" href="{% url 'musician_edit' pk=musician.pk %}">Edit</a>
-                <a href="{% url 'musician_delete' pk=musician.pk %}" class="btn btn-danger">Delete</a>
+            <div class="col-md-6 offset-md-3 text-center">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <h4>Name: {{musician.name}}</h4>
+                    </li>
+                    <li class="list-group-item">
+                        <h4>Group: {{musician.group}}</h4>
+                    </li>
+                    <li class="list-group-item">
+                        <h4>Birthday: {{musician.birthday}}</h4>
+                    </li>
+                    <li class="list-group-item">
+                        <h4>Main instrument: {{musician.main_instrument}}</h4>
+                    </li>
+                </ul>
+                
+                {% if user.is_authenticated %}
+                    <a class="btn btn-warning my-3" href="{% url 'musician_edit' pk=musician.pk %}">Edit</a>
+                    <a href="{% url 'musician_delete' pk=musician.pk %}" class="btn btn-danger">Delete</a>
+                {% endif %}
             </div>
     </div>
 </div>

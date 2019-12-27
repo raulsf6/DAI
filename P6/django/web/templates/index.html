@@ -1,5 +1,5 @@
 {% extends 'layout.html' %}
-
+{% load socialaccount %}
 
 {% block content %}
 
@@ -9,9 +9,11 @@
                 <div class="display-3">
                     Musical Database
                 </div>
+                {% if user.is_authenticated %}
                 <p class="lead mx-5">
-                    Why don't you try to create, search or delete?
+                    Welcome {{ user.username }}
                 </p>
+                {% endif %}
             </div>
         </div>
     </div>

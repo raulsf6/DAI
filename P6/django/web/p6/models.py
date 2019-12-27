@@ -19,9 +19,15 @@ class Musician(models.Model):
     birthday = models.DateTimeField(default = timezone.now)
     main_instrument = models.CharField(max_length=200)
 
+    def __str__(self):
+        return self.name
+
 class Album(models.Model):
     id_album = models.AutoField(primary_key=True)
     group = models.ForeignKey(Group, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     distributor = models.CharField(max_length=200)
     release_Date = models.DateTimeField(default = timezone.now)
+
+    def __str__(self):
+        return self.title

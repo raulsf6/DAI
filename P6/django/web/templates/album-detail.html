@@ -4,12 +4,24 @@
     <div class="container py-5">
     <div class="row">
             <div class="col-md-6 offset-md-3 text-center mx-auto">
-                <h4>Title: {{album.title}}</h4>
-                <h4>Group: {{album.group.name}}</h4>
-                <h4>Distributor: {{album.distributor}}</h4>
-                <h4>Release: {{album.release_Date}}</h4>
-                <a class="btn btn-warning" href="{% url 'album_edit' pk=album.pk %}">Edit</a>
-                <a href="#" class="btn btn-danger">Delete</a>
+                <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <h4>Ttile: {{album.title}}</h4>
+                </li>
+                <li class="list-group-item">
+                    <h4>Group: {{album.group}}</h4>
+                </li>
+                <li class="list-group-item">
+                    <h4>Distributor: {{album.distributor}}</h4>
+                </li>
+                <li class="list-group-item">
+                    <h4>Release: {{album.release_Date}}</h4>
+                </li>
+                </ul>
+                {% if user.is_authenticated %}
+                    <a class="btn btn-warning my-3" href="{% url 'album_edit' pk=album.pk %}">Edit</a>
+                    <a href="{% url 'album_delete' pk=album.pk %}" class="btn btn-danger">Delete</a>
+                {% endif %}
             </div>
     </div>
 </div>
