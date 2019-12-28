@@ -2,46 +2,58 @@ from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from .models import Group, Musician, Album
 from .forms import GroupForm, AlbumForm, MusicianForm
 from itertools import chain
+from django.http import JsonResponse
+import json
 
 def index(request):
     context = {}
+    elements_per_row = 3
+    page = 1
+
+    musicians_num = Musician.objects.all().count() 
+    albums_num =  Album.objects.all().count() 
+    groups_num = Group.objects.all().count()
+    elements = musicians_num + albums_num + groups_num
+    
+    num_pages = elements // elements_per_row if elements % elements_per_row == 0 else elements // elements_per_row + 1
+    context['previous'] = page - 1 if page > 1 else 1
+    context['next'] = page + 1 if page < num_pages else num_pages
+    context['range_pages'] = range(1, num_pages+1)
+    
+    return render(request,'general-list.html', context)
+
+def get_page(request):
+    data = {}
+    data['elements'] = []
     objects = []
-    context['objects'] = []
     elements_per_row = 3
     page = int(request.GET.get('page', -1))
 
     #Get all objects
     for group in Group.objects.all():
-        objects.append((group, "/musicdb/groups/" + str(group.pk) + "/"))
+        objects.append((group.name, "/musicdb/groups/" + str(group.pk) + "/"))
     for musician in Musician.objects.all():
-        objects.append((musician, "/musicdb/musicians/" + str(musician.pk) + "/"))
+        objects.append((musician.name, "/musicdb/musicians/" + str(musician.pk) + "/"))
     for album in Album.objects.all():
-        objects.append((album, "/musicdb/albums/" + str(album.pk) + "/"))
-    
-    
-    # Paged or not
-    if page == -1:
-        context['paged'] = False
-        context['objects'] = objects
-    else:
-        # If paged, calculate pages, previous and next
-        context['paged'] = True
-        elements = len(objects)
-        # If module is != we have to add one more page
-        num_pages = elements // elements_per_row if elements % elements_per_row == 0 else elements // elements_per_row + 1
+        objects.append((album.title, "/musicdb/albums/" + str(album.pk) + "/"))
         
-        context['previous'] = page - 1 if page > 1 else 1
-        context['next'] = page + 1 if page < num_pages else num_pages
-        
-        for i in range((page-1)*elements_per_row, page*elements_per_row):
-            if i >= elements:
-                break
-            else:
-                context['objects'].append(objects[i])
-        
-        context['range_pages'] = range(1, num_pages+1)
+    elements = len(objects)
     
-    return render(request,'general-list.html', context)
+    # If module is != we have to add one more page
+    num_pages = elements // elements_per_row if elements % elements_per_row == 0 else elements // elements_per_row + 1
+        
+    data['previous'] = page - 1 if page > 1 else 1
+    data['next'] = page + 1 if page < num_pages else num_pages
+        
+    for i in range((page-1)*elements_per_row, page*elements_per_row):
+        if i >= elements:
+            break
+        else:
+            data["elements"].append({"name": objects[i][0], "url": objects[i][1]})
+        
+    data['pages'] = num_pages
+
+    return JsonResponse(data, safe=False)
 
 def groups(request):
 

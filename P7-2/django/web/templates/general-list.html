@@ -1,5 +1,5 @@
 {% extends 'layout.html' %}
-
+{% load static %}
 
 {% block content %}
 <div class="row">
@@ -12,26 +12,24 @@
     </div>
     <div class="col-md-4 text-center my-5">
         <p class="display-4">Elements list</p>
-        <div class="list-group">
-            {% for object in objects %}
-            <a href="{{object.1}}" class="list-group-item list-group-item-action">
-                {{object.0}}
-            </a>
-            {% endfor %}
+        <div id="elements" class="list-group">
+            
         </div>
-        {% if paged %}
+        
         <nav>
-            <ul class="pagination justify-content-center my-3">
-              <li class="page-item"><a class="page-link" href="/musicdb/?page={{previous}}">Previous</a></li>
+            <ul class="pagination justify-content-center my-3 ">
+              <li id="prev" class="page-item"><a class="page-link navigator" value="{{previous}}">Previous</a></li>
               {% for number in range_pages %}
-              <li class="page-item"><a class="page-link" href="/musicdb/?page={{number}}">{{number}}</a></li>
+              <li class="page-item"><a class="page-link page ">{{number}}</a></li>
               {% endfor %}
-              <li class="page-item"><a class="page-link" href="/musicdb/?page={{next}}">Next</a></li>
+              <li id="next" class="page-item"><a class="page-link navigator" value="{{next}}">Next</a></li>
             </ul>
         </nav>
-        {% endif %}
+        
     </div>
     
 </div>
+
+<script src="{% static "p6/js/paginator.js" %}"></script>
 
 {% endblock %}
