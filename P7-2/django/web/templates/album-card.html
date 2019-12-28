@@ -1,0 +1,12 @@
+{% extends 'list.html' %}
+
+{% block card %}
+    <div class="card mx-5 my-5">
+            <div class="card-body">
+                <h5 class="card-title">Title: <a href="{% url 'album_detail' pk=object.pk %}">{{object.title}}</a></h5>
+                <p class="card-text">Group: {{object.group.name}}</p>
+                <p class="card-text">Distributor: {{object.distributor}}</p>
+                <p class="card-text">Release date: {{object.release_Date}}</p>
+            </div>
+    </div>
+{% endblock %}

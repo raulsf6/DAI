@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4  text-center my-5">
+        {% if user.is_authenticated %}
+        <p class="display-3 mx-5">
+            Welcome {{ user.username }}
+        </p>
+        {% endif %}
+    </div>
+    <div class="col-md-4 text-center my-5">
+        <p class="display-4">Elements list</p>
+        <div class="list-group">
+            {% for object in objects %}
+            <a href="{{object.1}}" class="list-group-item list-group-item-action">
+                {{object.0}}
+            </a>
+            {% endfor %}
+        </div>
+        {% if paged %}
+        <nav>
+            <ul class="pagination justify-content-center my-3">
+              <li class="page-item"><a class="page-link" href="/musicdb/?page={{previous}}">Previous</a></li>
+              {% for number in range_pages %}
+              <li class="page-item"><a class="page-link" href="/musicdb/?page={{number}}">{{number}}</a></li>
+              {% endfor %}
+              <li class="page-item"><a class="page-link" href="/musicdb/?page={{next}}">Next</a></li>
+            </ul>
+        </nav>
+        {% endif %}
+    </div>
+    
+</div>
+
+{% endblock %}
