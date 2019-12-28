@@ -3,18 +3,43 @@ from .models import Group, Musician, Album
 from .forms import GroupForm, AlbumForm, MusicianForm
 from itertools import chain
 
-# Create your views here.
-
 def index(request):
     context = {}
+    objects = []
     context['objects'] = []
+    elements_per_row = 3
+    page = int(request.GET.get('page', -1))
+
+    #Get all objects
     for group in Group.objects.all():
-        context['objects'].append((group, "/musicdb/groups/" + str(group.pk) + "/"))
+        objects.append((group, "/musicdb/groups/" + str(group.pk) + "/"))
     for musician in Musician.objects.all():
-        context['objects'].append((musician, "/musicdb/musicians/" + str(musician.pk) + "/"))
+        objects.append((musician, "/musicdb/musicians/" + str(musician.pk) + "/"))
     for album in Album.objects.all():
-        context['objects'].append((album, "/musicdb/albums/" + str(album.pk) + "/"))
+        objects.append((album, "/musicdb/albums/" + str(album.pk) + "/"))
     
+    
+    # Paged or not
+    if page == -1:
+        context['paged'] = False
+        context['objects'] = objects
+    else:
+        # If paged, calculate pages, previous and next
+        context['paged'] = True
+        elements = len(objects)
+        # If module is != we have to add one more page
+        num_pages = elements // elements_per_row if elements % elements_per_row == 0 else elements // elements_per_row + 1
+        
+        context['previous'] = page - 1 if page > 1 else 1
+        context['next'] = page + 1 if page < num_pages else num_pages
+        
+        for i in range((page-1)*elements_per_row, page*elements_per_row):
+            if i >= elements:
+                break
+            else:
+                context['objects'].append(objects[i])
+        
+        context['range_pages'] = range(1, num_pages+1)
     
     return render(request,'general-list.html', context)
 
