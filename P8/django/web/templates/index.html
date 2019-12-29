@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+{% load socialaccount %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <div class="container text-center my-3">
+                <div class="display-3">
+                    Musical Database
+                </div>
+                {% if user.is_authenticated %}
+                <p class="lead mx-5">
+                    Welcome {{ user.username }}
+                </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

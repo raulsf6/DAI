@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+
+{% block content %}
+    <div class="container py-5">
+    <div class="row ">
+            <div class="col-md-6 offset-md-3 text-center mx-auto">
+                <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <h4>Tile: {{album.title}}</h4>
+                </li>
+                <li class="list-group-item">
+                    <h4>Group: {{album.group}}</h4>
+                </li>
+                <li class="list-group-item">
+                    <h4>Distributor: {{album.distributor}}</h4>
+                </li>
+                <li class="list-group-item">
+                    <h4>Release: {{album.release_Date}}</h4>
+                </li>
+                </ul>
+                {% if user.is_authenticated %}
+                    <a class="btn btn-warning my-3" href="{% url 'album_edit' pk=album.pk %}">Edit</a>
+                    <a href="{% url 'album_delete' pk=album.pk %}" class="btn btn-danger">Delete</a>
+                {% endif %}
+            </div>
+    </div>
+</div>
+    
+{% endblock %}

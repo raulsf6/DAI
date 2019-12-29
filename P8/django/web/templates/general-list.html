@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+<div id="list-row" class="row">
+    <div class="col-md-4  text-center my-5">
+        {% if user.is_authenticated %}
+        <p class="display-3 mx-5">
+            Welcome {{ user.username }}
+        </p>
+        {% endif %}
+    </div>
+    <div class="col-md-4 text-center my-5">
+        <p class="display-4">Elements list</p>
+        <ul id="elements" class="list-group">
+            
+        </ul>
+        
+        <nav>
+            <ul id="pages" class="pagination justify-content-center my-3 ">
+              <li id="prev" class="page-item"><a class="page-link navigator" value="{{previous}}">Previous</a></li>
+              {% for number in range_pages %}
+              <li class="page-item"><a class="page-link page ">{{number}}</a></li>
+              {% endfor %}
+              <li id="next" class="page-item"><a class="page-link navigator" value="{{next}}">Next</a></li>
+            </ul>
+        </nav>
+        
+    </div>
+    
+</div>
+
+<script src="{% static "p6/js/paginator.js" %}"></script>
+<script src="{% static "p6/js/night-mode.js" %}"></script>
+
+{% endblock %}
