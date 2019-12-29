@@ -21,14 +21,14 @@
             class="jumbotron jumbotron-fluid mb-0 text-center pb-md-5"
             style="min-height: 400px; background-image: url({% static "p6/header.jpg" %}); background-size: cover; background-position: center bottom">
         </div>
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-md navbar-dark bg-secondary text-light">
             <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="/musicdb/">
                                 <svg class="bi bi-play" width="22" height="22" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M12.804 10L7 6.633v6.734L12.804 10zm.792-.696a.802.802 0 010 1.392l-6.363 3.692C6.713 14.69 6 14.345 6 13.692V6.308c0-.653.713-.998 1.233-.696l6.363 3.692z" clip-rule="evenodd"></path>
-                                  </svg>
+                                </svg>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -40,10 +40,16 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'albums' %}">Albums</a>
                     </li>
+                    <li class="nav-item">
+                        <a id="night" value="0" class="btn btn-dark mx-2">Night Mode</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="light" value="0" class="text-dark btn btn-light mx-2">Light Mode</a>
+                    </li>
                 </ul>
             </div>
             <div class="mx-auto order-0">
-                <a class="navbar-brand mx-auto" href="#">MUSICDB</a>
+                <a class="navbar-brand mx-auto" href="/musicdb/">MUSICDB</a>
                 <button
                     class="navbar-toggler"
                     type="button"
@@ -93,6 +99,7 @@
             src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
+        <script src="{% static "p6/js/night-mode.js" %}"></script>
 
     </body>
 </html>
