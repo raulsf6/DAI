@@ -55,6 +55,15 @@ def get_page(request):
 
     return JsonResponse(data, safe=False)
 
+def get_chart(request):
+    data = {"groups": []}
+    groups = Group.objects.all()
+    
+    for group in groups:
+        data['groups'].append({"name": group.name, "musicians": len(group.musician_set.all())})
+    
+    return JsonResponse(data, safe=False)
+
 def groups(request):
 
     context = {}

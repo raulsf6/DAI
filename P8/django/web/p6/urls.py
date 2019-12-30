@@ -23,5 +23,6 @@ urlpatterns = [
   path('groups/<int:pk>/delete/', views.object_delete, name='group_delete'),
   path('albums/<int:pk>/delete/', views.object_delete, name='album_delete'),
   path('get_page/', views.get_page, name='get_page'),
+  path('get_chart/', views.get_chart, name='get_chart'),
 ]
 

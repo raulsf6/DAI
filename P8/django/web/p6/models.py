@@ -18,8 +18,8 @@ class Musician(models.Model):
     name = models.CharField(max_length=200)
     birthday = models.DateTimeField(default = timezone.now)
     main_instrument = models.CharField(max_length=200)
-    lat = models.CharField(max_length=200)
-    lon = models.CharField(max_length=200)
+    birthplace_latitude = models.CharField(max_length=200)
+    birthplace_longitude = models.CharField(max_length=200)
 
     def __str__(self):
         return self.name
