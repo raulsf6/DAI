@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
             
             var myChart = Highcharts.chart('container', Highchart);
         },
+        
         failure: function(datos) {
                 alert('esto no vá');
         }

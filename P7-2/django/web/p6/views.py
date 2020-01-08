@@ -7,7 +7,7 @@ import json
 
 def index(request):
     context = {}
-    elements_per_row = 3
+    elements_per_row = 4
     page = 1
 
     musicians_num = Musician.objects.all().count() 
